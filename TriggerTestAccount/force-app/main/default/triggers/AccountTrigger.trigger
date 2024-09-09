@@ -7,6 +7,7 @@ trigger AccountTrigger on Account (before insert, after insert) {
         }
         else if(trigger.isAfter){
             AccountHandler.createRelatedContact(Trigger.new);
+            AccountHandler.createRelatedOpportunity(Trigger.new);
         }
     }
     

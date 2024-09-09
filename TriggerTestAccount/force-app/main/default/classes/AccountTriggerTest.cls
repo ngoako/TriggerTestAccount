@@ -81,4 +81,28 @@ public with sharing class AccountTriggerTest {
         //Compare data
         System.assert(lstContact != null, 'Contact was not created');
     }
+
+    @isTest
+    public static void createRelatedOpportunityTest(){
+        //Create data
+        List<Account> listAcc = new List<Account>();
+        for(Integer x = 1; x <= 5; x++){
+            Account acc = new Account();
+            acc.Name = 'PWC';
+            acc.RecordTypeId = '0128d000001ODfvAAG';
+
+            listAcc.add(acc);
+        }
+
+        //Add data
+        Test.startTest();
+            insert listAcc;
+        Test.stopTest();
+
+        //Retrieve data
+        List<Opportunity> lstOpportunities = [SELECT Id, Name FROM Opportunity WHERE AccountId =: listAcc[0].Id];
+
+        //Compare data
+        System.Assert(lstOpportunities != null, 'Opportunity was not created');
+    }
 }

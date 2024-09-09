@@ -46,4 +46,22 @@ public with sharing class AccountHandler {
             }
         }
     }
+    //When an Account record is created the create a related Opportunity
+    public static void createRelatedOpportunity(List<Account> listAccount){
+        if(!listAccount.isEmpty()){
+            List<Opportunity> lstOpp = new List<Opportunity>();
+            for(Account acc : listAccount){
+                Opportunity opp = new Opportunity();
+                opp.Name = 'Festival';
+                opp.CloseDate = system.today().addDays(20);
+                opp.StageName = 'Prospecting';
+
+                opp.AccountId = acc.Id;
+                lstOpp.add(opp);
+            }
+            if(!lstOpp.isEmpty()){
+                insert lstOpp;
+            }
+        }
+    }
 }
